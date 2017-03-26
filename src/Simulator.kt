@@ -19,6 +19,8 @@ class Simulator {
             //CHECK IF WE HAVE EXHAUSTED ALL PROCESSES
             //ARRIVAL TICK
             println("tick: "+tick)
+            //INCREASE TICK - COMPLIANCE WITH BUBBA
+            tick++
             if(numProcs == pdone) {
                 var avg = (acc.toFloat() / numProcs.toFloat())
                 System.out.printf("Average Turnaround was %.2f ", avg)
@@ -40,10 +42,10 @@ class Simulator {
 
                 if(queue.head!!.time == 0){
                     var out:Node = queue.pop()!!
-                    out.exit = tick
+                    out.exit = tick + 1
                     System.out.printf("Out Process: [Arrival: %d] [Priority: %d] [Time: %d] [Out: %d] [Turnaround: %d]\n"
-                            ,out.arrival,out.priority,out.time, out.exit,(tick - out.arrival))
-                    acc += (tick - out.arrival)
+                            ,out.arrival,out.priority,out.time, out.exit,(out.exit - out.arrival))
+                    acc += (out.exit - out.arrival)
                     pdone++
                     q = QUANTA
                 }
@@ -54,9 +56,7 @@ class Simulator {
                 queue.rr()
                 q = QUANTA
             }
-
             //DONE WITH THINGS
-            tick++
 
         }
     }

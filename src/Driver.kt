@@ -59,6 +59,5 @@ class Driver {
         }
         var sim = Simulator(pmem)
         sim.start()
-
     }
 }
